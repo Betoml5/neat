@@ -1,0 +1,26 @@
+@model neat.Models.ViewModels.PromocionesViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "MainLayout";
+}
+
+<section class="menu1">
+    @if (Model.Hamburguesas.Count() > 0)
+    {
+        <img src="hamburguesas/@(Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).Id).png" />
+        <div class=" datos">
+            <h3>
+                <del>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).PrecioPromocion</del>
+                <b>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).Precio</b>
+            </h3>
+            <h2>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).Nombre</h2>
+            <p>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).Descripcion</p>
+        </div>
+        <span>
+            <a href="promociones.html">&lt;</a>
+            <a href="promociones.html">&gt;</a>
+        </span>
+    } else {
+        <h2>No hay promociones</h2>
+    }
+</section>
