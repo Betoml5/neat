@@ -265,20 +265,39 @@ namespace neat.Areas.Admin.Controllers
                     menuRepository.Update(hamburguesa);
                     return RedirectToAction("Index", "Menu", new { area = "Admin" });
                 }
+                return View(vm);
             }
             return RedirectToAction("Index", "Menu", new { area = "Admin" });
         }
 
         public IActionResult QuitarPromocion(int Id)
         {
-            // TODO: Your code here
-            return View();
+            var hamburguesa = menuRepository.Get(Id);
+            if (hamburguesa != null)
+            {
+                var vm = new AgregarPromocionViewModel
+                {
+                    Id = hamburguesa.Id,
+                    Nombre = hamburguesa.Nombre,
+                    PrecioReal = hamburguesa.Precio,
+                    PrecioPromocion = hamburguesa.PrecioPromocion ?? 0
+                };
+                return View(vm);
+            }
+            return RedirectToAction("Index", "Menu", new { area = "Admin" });
         }
 
         [HttpPost]
         public IActionResult QuitarPromocion(AgregarPromocionViewModel vm)
         {
-            return View();
+
+            var hamburguesa = menuRepository.Get(vm.Id);
+            if (hamburguesa != null)
+            {
+                hamburguesa.PrecioPromocion = null;
+                menuRepository.Update(hamburguesa);
+            }
+            return RedirectToAction("Index", "Menu", new { area = "Admin" });
         }
 
 

@@ -1,0 +1,56 @@
+@model neat.Areas.Admin.Models.ViewModels.AgregarPromocionViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "QuitarPromocion";
+    Layout = "AdminLayout";
+}
+
+
+<form action="~/admin/menu/quitarpromocion" method="post">
+    <h1>Eliminar promoción</h1>
+    <input type="hidden" asp-for="Id" />
+    <span class="pregunta"><b>¿Desea eliminar la promoción de la hamburguesa?</b></span>
+    <span>
+        <label for="nombre">Nombre:</label>
+        <input readonly asp-for="Nombre" type="text" id="nombre" required>
+    </span>
+    <span>
+        <label for="precio">Precio real:</label>
+        <input readonly asp-for="PrecioReal" type="text" id="precio" required>
+    </span><span>
+        <label for="promocion">Precio promocion:</label>
+        <input readonly asp-for="PrecioPromocion" type="text" id="promocion" required>
+    </span>
+    <span class="error">@Html.ValidationSummary(true)</span>
+
+    <div class="botones">
+        <input type="submit" value="Si" />
+        <a href="~/admin/menu">
+            <input type="button" value="No" />
+        </a>
+    </div>
+</form>
+
+<script>
+
+    function previewImagen() {
+        const inputImagen = document.getElementById('imagen');
+        const imagenPreview = document.getElementById('imagen-preview');
+
+        const archivoImagen = inputImagen.files[0];
+
+        if (archivoImagen) {
+            const lector = new FileReader();
+
+            lector.onload = function (e) {
+                imagenPreview.src = e.target.result;
+                imagenPreview.style.display = 'block';
+            };
+
+            lector.readAsDataURL(archivoImagen);
+        } else {
+            imagenPreview.src = '#';
+            imagenPreview.style.display = 'none';
+        }
+    }
+</script>

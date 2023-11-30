@@ -19,23 +19,21 @@ namespace neat.Controllers
         [Route("Menu/{id?}")]
         public IActionResult Index(string id)
         {
-
-
             if (id != null)
             {
                 id = id.Replace("-", " ");
                 var hamburguesasList = repository
-            .GetAll()
-            .OrderBy(x => x.Nombre)
-            .Select(x => new HamburguesaModel()
-            {
-                Id = x.Id,
-                Nombre = x.Nombre,
-                Descripcion = x.Descripción,
-                Precio = x.Precio,
-                Clasificacion = x.IdClasificacionNavigation.Nombre
-            })
-            .GroupBy(x => x.Clasificacion);
+                    .GetAll()
+                    .OrderBy(x => x.Nombre)
+                    .Select(x => new HamburguesaModel()
+                    {
+                        Id = x.Id,
+                        Nombre = x.Nombre,
+                        Descripcion = x.Descripción,
+                        Precio = x.Precio,
+                        Clasificacion = x.IdClasificacionNavigation.Nombre
+                    })
+                    .GroupBy(x => x.Clasificacion);
 
                 var hbActual = repository.GetByNombre(id);
 
