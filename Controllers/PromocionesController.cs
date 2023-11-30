@@ -21,9 +21,15 @@ namespace neat.Controllers
             this.repository = repository;
         }
 
-        public IActionResult Index()
+        [Route("Promociones/{id?}")]
+        public IActionResult Index(string Id)
         {
 
+            if (Id != null)
+            {
+                Id = Id.Replace("-", " ");
+
+            }
 
             var promociones = repository
                 .GetAll()
@@ -34,7 +40,7 @@ namespace neat.Controllers
                     Nombre = x.Nombre,
                     Descripcion = x.Descripción,
                     Precio = x.Precio,
-                    PrecioPromocion = x.PrecioPromocion
+                    PrecioPromocion = x.PrecioPromocion ?? 0,
                 });
 
             var model = new PromocionesViewModel()

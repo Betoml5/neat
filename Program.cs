@@ -18,9 +18,9 @@ builder.Services.AddTransient<MenuRepository>();
 var app = builder.Build();
 app.UseStaticFiles();
 
-// app.MapControllerRoute(
-//     name: "areas",
-//     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-//     );
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
 app.MapDefaultControllerRoute();
 app.Run();

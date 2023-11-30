@@ -10,17 +10,19 @@
         <img src="hamburguesas/@(Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).Id).png" />
         <div class=" datos">
             <h3>
-                <del>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).PrecioPromocion</del>
+                <del>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).PrecioPromocion.ToString("c")</del>
                 <b>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).Precio</b>
             </h3>
             <h2>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).Nombre</h2>
             <p>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).Descripcion</p>
         </div>
         <span>
-            <a href="promociones.html">&lt;</a>
-            <a href="promociones.html">&gt;</a>
+            <a href="~/promociones">&lt;</a>
+            <a href="~/promociones/@(Model.IndiceModeloActual)+1">&gt;</a>
         </span>
-    } else {
+    }
+    else
+    {
         <h2>No hay promociones</h2>
     }
 </section>

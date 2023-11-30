@@ -1,0 +1,52 @@
+@model IEnumerable<IGrouping<string, neat.Areas.Admin.Models.ViewModels.IndexMenuAdminViewModel>>
+@{
+
+    ViewData["Title"] = "Index";
+    Layout = "AdminLayout";
+}
+
+<section class="menu2">
+
+    @foreach (var grupo in @Model)
+    {
+        <h1>@grupo.Key</h1>
+        foreach (var item in grupo)
+        {
+            <div>
+                <img src="~/hamburguesas/@(item.Id).png" />
+                <h1>@item.Nombre</h1>
+                <h2>
+                    <del>
+                        @if (@item.PrecioPromocion > 0)
+                        {
+                            @item.PrecioPromocion.ToString("c")
+                        }
+                    </del>
+                    <br />@item.Precio.ToString("c")
+                </h2>
+                <p>
+                    @item.Descripcion
+                </p>
+
+                <span class="acciones">
+                    <a href="~/admin/menu/editar/@item.Id">Editar</a>
+                    <a href="~/admin/menu/eliminar/@item.Id">Eliminar</a>
+                    @if (item.PrecioPromocion > 0)
+                    {
+                        <a href="~/admin/menu/quitar-promocion/@item.Id">Quitar promoción</a>
+                    }
+                    else
+                    {
+                        <a href="~/admin/menu/agregarpromocion/@item.Id">Agregar promoción</a>
+
+                    }
+
+                </span>
+            </div>
+        }
+    }
+
+
+
+    <a class="fab" href="~/admin/menu/agregar">+</a>
+</section>

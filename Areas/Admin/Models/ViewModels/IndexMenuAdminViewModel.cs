@@ -1,25 +1,16 @@
 
-namespace neat.Models.ViewModels
+
+namespace neat.Areas.Admin.Models.ViewModels
 {
-    public class PromocionesViewModel
+    public class IndexMenuAdminViewModel
     {
-
-        public int IndiceModeloActual { get; set; } = 0;
-        public IEnumerable<HamburguesaModel> Hamburguesas { get; set; } = null!;
-
-    }
-
-    public class HamburguesaModel
-    {
-
         public int Id { get; set; }
         public string Nombre { get; set; } = null!;
+
         public string Descripcion { get; set; } = null!;
         public double Precio { get; set; }
         public double PrecioPromocion { get; set; } = 0;
         public string Clasificacion { get; set; } = null!;
-
-
     }
-
 }
+
