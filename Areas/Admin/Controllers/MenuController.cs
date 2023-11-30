@@ -217,6 +217,7 @@ namespace neat.Areas.Admin.Controllers
                         vm.Imagen.CopyTo(fs);
                         fs.Close();
                     }
+                    return RedirectToAction("Index", "Menu", new { area = "Admin" });
                 }
                 return RedirectToAction("Index", "Menu", new { area = "Admin" });
             }

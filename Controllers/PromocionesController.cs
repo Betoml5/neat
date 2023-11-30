@@ -25,32 +25,34 @@ namespace neat.Controllers
         public IActionResult Index(string Id)
         {
 
-            if (Id != null)
+            var hamburguesasPromocion = repository
+                .GetAll()
+                .Where(x => x.PrecioPromocion > 0);
+            if (hamburguesasPromocion != null)
             {
-                Id = Id.Replace("-", " ");
+                var IdPrimerHamburguesa = hamburguesasPromocion.FirstOrDefault().Id;
+
+
+                var vm = new PromocionesViewModel()
+                {
+                    IndiceModeloActual = IdPrimerHamburguesa,
+                    Hamburguesas = hamburguesasPromocion.Select(x => new HamburguesaModel()
+                    {
+                        Id = x.Id,
+                        Nombre = x.Nombre,
+                        Descripcion = x.Descripción,
+                        Precio = x.Precio,
+                        PrecioPromocion = (double)x.PrecioPromocion,
+
+                    }).ToList()
+                };
+
+
+                return View(vm);
 
             }
 
-            var promociones = repository
-                .GetAll()
-                .Where(x => x.PrecioPromocion > 0)
-                .Select(x => new HamburguesaModel
-                {
-                    Id = x.Id,
-                    Nombre = x.Nombre,
-                    Descripcion = x.Descripción,
-                    Precio = x.Precio,
-                    PrecioPromocion = x.PrecioPromocion ?? 0,
-                });
-
-            var model = new PromocionesViewModel()
-            {
-                IndiceModeloActual = 0,
-                Hamburguesas = promociones
-            };
-
-
-            return View(model);
+            return View(new PromocionesViewModel() { Hamburguesas = new List<HamburguesaModel>() });
         }
     }
 }

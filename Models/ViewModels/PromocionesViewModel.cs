@@ -5,7 +5,7 @@ namespace neat.Models.ViewModels
     {
 
         public int IndiceModeloActual { get; set; } = 0;
-        public IEnumerable<HamburguesaModel> Hamburguesas { get; set; } = null!;
+        public List<HamburguesaModel> Hamburguesas { get; set; } = null!;
 
     }
 
