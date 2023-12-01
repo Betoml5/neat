@@ -21,38 +21,68 @@ namespace neat.Controllers
             this.repository = repository;
         }
 
-        [Route("Promociones/{id?}")]
-        public IActionResult Index(string Id)
+        [Route("promociones/{Id?}")]
+        public IActionResult Index(string? Id)
         {
 
-            var hamburguesasPromocion = repository
-                .GetAll()
-                .Where(x => x.PrecioPromocion > 0);
-            if (hamburguesasPromocion != null)
+            Menu? hamburguesa = new Menu();
+            var hamburguesasEnPromocion = repository
+                          .GetAll()
+                          .Where(x => x.PrecioPromocion > 0);
+
+
+            if (Id != null)
             {
-                var IdPrimerHamburguesa = hamburguesasPromocion.FirstOrDefault().Id;
+                var nombreHamburguesa = Id.Replace("-", " ");
+                hamburguesa = hamburguesasEnPromocion
+                    .FirstOrDefault(x => x.Nombre == nombreHamburguesa);
 
+                var next = hamburguesasEnPromocion
+                    .SkipWhile(x => x.Id != hamburguesa.Id)
+                    .Skip(1)
+                    .FirstOrDefault();
 
-                var vm = new PromocionesViewModel()
+                var previous = hamburguesasEnPromocion
+                    .TakeWhile(x => x.Id != hamburguesa.Id)
+                    .LastOrDefault();
+
+                var vm2 = new PromocionesViewModel()
                 {
-                    IndiceModeloActual = IdPrimerHamburguesa,
-                    Hamburguesas = hamburguesasPromocion.Select(x => new HamburguesaModel()
-                    {
-                        Id = x.Id,
-                        Nombre = x.Nombre,
-                        Descripcion = x.Descripción,
-                        Precio = x.Precio,
-                        PrecioPromocion = (double)x.PrecioPromocion,
-
-                    }).ToList()
+                    Hamburguesa = hamburguesa,
+                    Siguiente = next,
+                    Anterior = previous
                 };
 
-
-                return View(vm);
+                return View(vm2);
 
             }
 
-            return View(new PromocionesViewModel() { Hamburguesas = new List<HamburguesaModel>() });
+
+
+
+            hamburguesa = hamburguesasEnPromocion
+                .FirstOrDefault();
+
+            var siguiente = hamburguesasEnPromocion
+                .SkipWhile(x => x.Id != hamburguesa.Id)
+                .Skip(1)
+                .FirstOrDefault();
+
+            var anterior = hamburguesasEnPromocion
+                .TakeWhile(x => x.Id != hamburguesa.Id)
+                .LastOrDefault();
+
+
+
+            var vm = new PromocionesViewModel()
+            {
+                Hamburguesa = hamburguesa,
+                Siguiente = siguiente,
+                Anterior = anterior
+            };
+
+
+            return View(vm);
         }
     }
 }

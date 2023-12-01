@@ -1,11 +1,15 @@
 
+using neat.Models.Entities;
+
 namespace neat.Models.ViewModels
 {
     public class PromocionesViewModel
     {
 
-        public int IndiceModeloActual { get; set; } = 0;
-        public List<HamburguesaModel> Hamburguesas { get; set; } = null!;
+
+        public Menu? Hamburguesa { get; set; }
+        public Menu Siguiente { get; set; }
+        public Menu Anterior { get; set; }
 
     }
 
@@ -17,7 +21,7 @@ namespace neat.Models.ViewModels
         public string Descripcion { get; set; } = null!;
         public double Precio { get; set; }
         public double PrecioPromocion { get; set; } = 0;
-        public string Clasificacion { get; set; } = null!;
+        public string? Clasificacion { get; set; } = null!;
 
 
     }

@@ -3,28 +3,24 @@
     ViewData["Title"] = "Index";
     Layout = "MainLayout";
 }
-
 <section class="menu1">
-    @if (Model.Hamburguesas.Count > 0)
-    {
-        <img src="~/hamburguesas/@(Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).Id).png" />
-        <div class=" datos">
-            <h3>
-                <del>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).Precio.ToString("c")</del>
-                <b>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).PrecioPromocion.ToString("c")</b>
-            </h3>
-            <h2>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).Nombre</h2>
-            <p>@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual).Descripcion</p>
-        </div>
-        <span>
-            <a
-                href="~/promociones/menu/@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual-1).Nombre.Replace(" ", "-")">&lt;</a>
-            <a
-                href="~/promociones/menu/@Model.Hamburguesas.ElementAt(Model.IndiceModeloActual+1).Nombre.Replace(" ", "-")">&gt;</a>
-        </span>
-    }
-    else
-    {
-        <h2>No hay promociones</h2>
-    }
+    <img src="~/hamburguesas/@(Model.Hamburguesa.Id).png" />
+    <div class="datos">
+        <h3>
+            <del>@Model.Hamburguesa.Precio.ToString("c")</del>
+            <b>@Model.Hamburguesa.PrecioPromocion.Value.ToString("C")</b>
+        </h3>
+        <h2>@Model.Hamburguesa.Nombre</h2>
+        <p>@Model.Hamburguesa.Descripción</p>
+    </div>
+    <span>
+        @if (Model.Anterior != null)
+        {
+            <a href="~/promociones/@Model.Anterior.Nombre.Replace(" ", "-")">&lt;</a>
+        }
+        @if (Model.Siguiente != null)
+        {
+            <a href="~/promociones/@Model.Siguiente.Nombre.Replace(" ", "-")">&gt;</a>
+        }
+    </span>
 </section>
