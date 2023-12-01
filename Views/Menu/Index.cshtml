@@ -16,11 +16,22 @@
             <h3>@grupo.Key</h3>
             foreach (var hamburguesa in grupo)
             {
-                <h2>
-                    <a href="~/menu/@hamburguesa.Nombre.Replace(" ", "-")"><span>@hamburguesa.Nombre</span>
-                        <span class="price">@hamburguesa.Precio.ToString("C")</span>
-                    </a>
-                </h2>
+                @if (hamburguesa.Id == Model.Hamburguesa.Id)
+                {
+                    <h2 class="seleccionado">
+                        <a href="~/menu/@hamburguesa.Nombre.Replace(" ", "-")"><span>@hamburguesa.Nombre</span>
+                            <span class="price">@hamburguesa.Precio.ToString("C")</span>
+                        </a>
+                    </h2>
+                }
+                else
+                {
+                    <h2>
+                        <a href="~/menu/@hamburguesa.Nombre.Replace(" ", "-")"><span>@hamburguesa.Nombre</span>
+                            <span class="price">@hamburguesa.Precio.ToString("C")</span>
+                        </a>
+                    </h2>
+                }
             }
         }
 
