@@ -4,23 +4,30 @@
     Layout = "MainLayout";
 }
 <section class="menu1">
-    <img src="~/hamburguesas/@(Model.Hamburguesa.Id).png" />
-    <div class="datos">
-        <h3>
-            <del>@Model.Hamburguesa.Precio.ToString("c")</del>
-            <b>@Model.Hamburguesa.PrecioPromocion.Value.ToString("C")</b>
-        </h3>
-        <h2>@Model.Hamburguesa.Nombre</h2>
-        <p>@Model.Hamburguesa.Descripción</p>
-    </div>
-    <span>
-        @if (Model.Anterior != null)
-        {
-            <a href="~/promociones/@Model.Anterior.Nombre.Replace(" ", "-")">&lt;</a>
-        }
-        @if (Model.Siguiente != null)
-        {
-            <a href="~/promociones/@Model.Siguiente.Nombre.Replace(" ", "-")">&gt;</a>
-        }
-    </span>
+    @if (Model.Hamburguesa != null)
+    {
+        <img src="~/hamburguesas/@(Model.Hamburguesa.Id).png" />
+        <div class="datos">
+            <h3>
+                <del>@Model.Hamburguesa.Precio.ToString("c")</del>
+                <b>@Model.Hamburguesa.PrecioPromocion.Value.ToString("C")</b>
+            </h3>
+            <h2>@Model.Hamburguesa.Nombre</h2>
+            <p>@Model.Hamburguesa.Descripción</p>
+        </div>
+        <span>
+            @if (Model.Anterior != null)
+            {
+                <a href="~/promociones/@Model.Anterior.Nombre.Replace(" ", "-")">&lt;</a>
+            }
+            @if (Model.Siguiente != null)
+            {
+                <a href="~/promociones/@Model.Siguiente.Nombre.Replace(" ", "-")">&gt;</a>
+            }
+        </span>
+    }
+    else
+    {
+        <h2>No hay promociones</h2>
+    }
 </section>
